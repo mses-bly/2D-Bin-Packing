@@ -49,4 +49,79 @@ An example output.txt could be:
 99 0.0 1553.816054000008,5.0
 
 ```
-The repository contains a file `Example.7z`, which contains an input file and its outputs (.png,.txt) .
+The repository contains a file `Example.7z`, which contains an input file and its outputs (.png,.txt).
+
+**Code modification**
+
+The file structure of the project is as follows:
+
+- src
+  - core
+    - Bin.java : Class that specifies a Bin object.
+    - BinPacking.java : Class that executes the complete packing strategy.
+    - Constants.java : Contains some constants used in the code.
+  - geometricprimitives
+    - MArea.java : Class that specifies a piece object.
+    - MPointDouble.java : Extension of Java's Point2D.Double class.
+    - MVector.java : Class that represents a simple geometric vector.
+  - test_files
+  - utils
+    - Client.java : Execution client. Process the input and produces the outputs.
+    - RecreateBinsClient.java : Client for the generation of bin images from the outputs.txt.
+    - RedBlackBST.java : Red Black BST implementation from http://algs4.cs.princeton.edu/code/ (GPLv3)
+    - Utils.java : Various utility functions.
+
+Some modifications can be made in order to improve the results of the algorithm. In concrete, the class `Constants.java` contains some variables that if increased, will produce more accurate movements in the displacement of pieces during the algorithm. Also, this class contains rotation angles for which we will try to place a piece. If we extend this array, the algorithm will try to place the pieces in all defined angles. Please note that there is a tradeoff in time when modifying these parameters: increasing them will most likely improve the results, but also the computation time. For example, for the test set Shapes12.txt (220 pieces), and the standard parameters:
+
+```
+DIVE_HORIZONTAL_DISPLACEMENT_FACTOR = 3;
+DX_SWEEP_FACTOR = 10;
+DY_SWEEP_FACTOR = 2;
+ROTATION_ANGLES = { 0, 90 };
+```
+
+We obtain 33 bins as a result. Increasing the parameters to:
+
+```
+DIVE_HORIZONTAL_DISPLACEMENT_FACTOR = 10;
+DX_SWEEP_FACTOR = 10;
+DY_SWEEP_FACTOR = 10;
+ROTATION_ANGLES = { 0,10,20,30,40,50,60,70,80 90 };
+
+```
+
+We obtain 30 bins, thus obtaining a 3 bins gain, but also a significant increment in execution time. Please note that the modification of the parameters (especially rotation angles) depends of the types of pieces in your set.  It may be that your pieces are mostly oblique, so it can be interesting to include several angles. Nevertheless if, for example, you pieces are mostly rectangular shaped, it won’t make much difference the inclusion of a lot of different angles. The use of the parameters is to use at discretion, and a set of parameters that perform extremely well on a set can perform poorly on a different set, with other characteristics.
+
+**Recreating bins from output files**
+
+The project includes a client `RecreateBinsClient.java` that recreates bin images from the algorithm’s outputs `Bin-*.txt` and the input points file. It’s a good way to have example code on the reconstruction of the bins from the output files, in case the project is integrated in a workflow. To execute from inside the project, modify the constant variables at the beginning of the class:
+
+```
+PIECES_PATH = "_your_original_points_file_path_";
+BINS_PATH = "_your_directory_containing_output_points_files_path_";
+OUTPUT = "_your_desired_output_directory_path_";
+
+```
+**Recreating bins from output files**
+The project includes a client `RecreateBinsClient.java` that recreates bin images from the algorithm’s outputs `Bin-*.txt` and the input points file. It’s a good way to have example code on the reconstruction of the bins from the output files, in case the project is integrated in a workflow. To execute from inside the project, modify the constant variables at the beginning of the class:
+```
+PIECES_PATH = "_your_original_points_file_path_";
+BINS_PATH = "_your_directory_containing_output_points_files_path_";
+OUTPUT = "_your_desired_output_directory_path_";
+```
+
+Please note that the input file must be in a different directory than the `Bin-*.txt` files.
+
+```
+
+PIECES_PATH = "C:Users/X/Desktop/Example/input/Shapes.tx";
+BINS_PATH = "C:/Users/X/Desktop/Example/";
+OUTPUT = "C:/Users/X/Desktop/Example/Output/";
+
+```
+
+**Documentation**
+
+The project contains documentation (Javadoc format) under the `doc` directory. However, for improvements and extension purposes I will continue to add details on the algorithm itself, which I believe will allow developers using the code to improve the performance and results of the current  implementation.
+
+

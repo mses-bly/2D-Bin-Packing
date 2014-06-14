@@ -33,7 +33,7 @@ For each Bin that was used, it will output an image of that bin, with the pieces
 1. The first line contains the number of pieces in this Bin (N).
 2. N lines follow, each one containing:
   - Piece ID (corresponds to its position in the input file).
-  - Final rotation of the piece with respect to its original rotation (if no rotation was done, 0).
+  - Final rotation of the piece with respect to its original rotation (if no rotation was applied, 0).
   - 'X,Y' final position of the piece, specified as lower left X coordinate and lower left Y coordinate, comma separated.
 
 An example output.txt could be:

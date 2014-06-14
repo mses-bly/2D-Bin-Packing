@@ -24,7 +24,7 @@ X11,Y11 X12,Y12 … X1M,Y1M -> N lines, each with the description of a piece.
 X21,Y21 X22,Y22 … X1M,Y1M -> Each line contains the points separated by a single space and X,Y position of the point separated by a comma.
 ```
 
-You can find some test sets under `src/test_files`. If you launch the program with the set `Shapes2.txt` the algorithm should finish rather quickly and give you an idea of what are the inputs and outputs of the program. Please note that the points that describe the figures should be given in counterclockwise order.
+You can find some test sets under `src/test_files`. If you launch the program with the set `Shapes5.txt` the algorithm should finish rather quickly and give you an idea of what are the inputs and outputs of the program. Please note that the points that describe the figures should be given in counterclockwise order.
 
 The program will produce various items as a result:
 
@@ -34,7 +34,7 @@ For each Bin that was used, it will output an image of that bin, with the pieces
 2. N lines follow, each one containing:
   - Piece ID (correspond to its position in the input file).
   - Final rotation of the piece with respect to its original rotation (if no rotation was done, 0).
-  - 'X,Y' Lower left X coordinate of the piece and lower left Y coordinate of the piece, comma separated.
+  - 'X,Y' final position of the piece, specified as lower left X coordinate and lower left Y coordinate, comma separated.
 
 An example output.txt could be:
 
@@ -49,3 +49,4 @@ An example output.txt could be:
 99 0.0 1553.816054000008,5.0
 
 ```
+The repository contains a file `Example.7z`, which contains an input file and its outputs (.png,.txt) .

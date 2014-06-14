@@ -90,7 +90,7 @@ ROTATION_ANGLES = { 0,10,20,30,40,50,60,70,80 90 };
 
 ```
 
-We obtain 30 bins, thus obtaining a 3 bins gain, but also a significant increment in execution time. Please note that the modification of the parameters (especially rotation angles) depends of the types of pieces in your set.  It may be that your pieces are mostly oblique, so it can be interesting to include several angles. Nevertheless if, for example, you pieces are mostly rectangular shaped, it won’t make much difference the inclusion of a lot of different angles. The use of the parameters is to use at discretion, and a set of parameters that perform extremely well on a set can perform poorly on a different set, with other characteristics.
+We obtain 30 bins, thus obtaining a 3 bins gain, but also a significant increment in execution time. Please note that the modification of the parameters (especially rotation angles) depends of the types of pieces in your set.  It may be that your pieces are mostly oblique, so it can be interesting to include several angles. Nevertheless if, for example, you pieces are mostly rectangular shaped, it won’t make much difference the inclusion of a lot of different angles. The parameters are to use at discretion: some values that perform extremely well on a set can perform poorly on a different set with other characteristics.
 
 **Recreating bins from output files**
 

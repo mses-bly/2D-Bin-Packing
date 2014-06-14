@@ -15,7 +15,7 @@ You can find a jar package with executable code to give you an idea of what the 
 $ java –jar 2DBinPacking.jar <input_file> 
 ```
 
-input_file: This is the pieces descriptor file, it contains the bin dimensions in which to place the pieces, the number of pieces, and the points that describe the 2D contour of the pieces themselves. An example of such a file would be:
+input_file: This is the pieces descriptor file, it contains the bin dimensions in which to place the pieces, the number of pieces, and the points that describe the 2D contour of the pieces themselves. An example of such file would be:
 
 ```
 2000 1170                 -> bin dimensions, separated by space.

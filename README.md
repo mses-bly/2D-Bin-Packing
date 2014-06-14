@@ -105,7 +105,7 @@ Please note that the input file must be in a different directory than the `Bin-*
 
 ```
 
-PIECES_PATH = "C:Users/X/Desktop/Example/input/Shapes.tx";
+PIECES_PATH = "C:Users/X/Desktop/Example/input/Shapes.txt";
 BINS_PATH = "C:/Users/X/Desktop/Example/";
 OUTPUT = "C:/Users/X/Desktop/Example/Output/";
 
@@ -113,6 +113,6 @@ OUTPUT = "C:/Users/X/Desktop/Example/Output/";
 
 **Documentation**
 
-The project contains documentation (Javadoc format) under the `doc` directory. However, for improvements and extension purposes I will continue to add details on the algorithm itself, which I believe will allow developers using the code to improve the performance and results of the current  implementation.
+The project contains documentation (Javadoc format) under the `doc` directory. However, for improvement and extension purposes I will continue to add details on the algorithm itself, which I believe will allow developers using the code to improve the performance and results of the current  implementation.
 
 

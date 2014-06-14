@@ -30,7 +30,7 @@ public class MArea extends Area {
 
     private int ID;
     /**
-     * Accumulare rotation in degrees of this MArea
+     * Accumulate rotation in degrees of this MArea
      */
     private double rotation;
 

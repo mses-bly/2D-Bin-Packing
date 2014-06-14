@@ -8,6 +8,7 @@ The main goal of the project is to provide a starting point for developers who d
 This is a work in progress, so feel free to write me to moises.baly@gmail.com for bugs, suggestions, improvements or whatever you consider is appropriate. Also, feel free to download, modify or use the code in any project you need.
 
 **Basic use**
+
 You can find a jar package with executable code to give you an idea of what the application does. To execute the jar file use:
 
 ```
@@ -24,3 +25,27 @@ X21,Y21 X22,Y22 … X1M,Y1M -> Each line contains the points separated by a sing
 ```
 
 You can find some test sets under `src/test_files`. If you launch the program with the set `Shapes2.txt` the algorithm should finish rather quickly and give you an idea of what are the inputs and outputs of the program. Please note that the points that describe the figures should be given in counterclockwise order.
+
+The program will produce various items as a result:
+
+For each Bin that was used, it will output an image of that bin, with the pieces that have been placed inside. For example, `Bin-1.png`. Also, it will produce a text file that contains information that will allow reconstructing the bins later on; for our previous bin `Bin-1`.png, it will produce `Bin-1.txt`. This text files are structured as follows:
+
+1. The first line contains the number of pieces in this Bin (N).
+2. N lines follow, each one containing:
+  - Piece ID (correspond to its position in the input file).
+  - Final rotation of the piece with respect to its original rotation (if no rotation was done, 0).
+  - 'X,Y' Lower left X coordinate of the piece and lower left Y coordinate of the piece, comma separated.
+
+An example output.txt could be:
+
+```
+7
+78 0.0 0.0,436.0
+81 0.0 0.0,81.0
+56 90.0 1635.2214000000001,598.0
+26 180.0 629.992,464.22140000000013
+31 90.0 1645.9758000000002,217.20799999999997
+57 90.0 324.2951300000001,445.20799999999997
+99 0.0 1553.816054000008,5.0
+
+```

@@ -95,15 +95,6 @@ We obtain 30 bins, thus obtaining a 3 bins gain, but also a significant incremen
 **Recreating bins from output files**
 
 The project includes a client `RecreateBinsClient.java` that recreates bin images from the algorithm’s outputs `Bin-*.txt` and the input points file. It’s a good way to have example code on the reconstruction of the bins from the output files, in case the project is integrated in a workflow. To execute from inside the project, modify the constant variables at the beginning of the class:
-
-```
-PIECES_PATH = "_your_original_points_file_path_";
-BINS_PATH = "_your_directory_containing_output_points_files_path_";
-OUTPUT = "_your_desired_output_directory_path_";
-
-```
-**Recreating bins from output files**
-The project includes a client `RecreateBinsClient.java` that recreates bin images from the algorithm’s outputs `Bin-*.txt` and the input points file. It’s a good way to have example code on the reconstruction of the bins from the output files, in case the project is integrated in a workflow. To execute from inside the project, modify the constant variables at the beginning of the class:
 ```
 PIECES_PATH = "_your_original_points_file_path_";
 BINS_PATH = "_your_directory_containing_output_points_files_path_";

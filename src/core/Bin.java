@@ -660,6 +660,11 @@ public class Bin {
     private MArea dive(MArea toDive, Rectangle container, MArea collisionArea,
 	    MVector vector) {
 	Rectangle2D.Double toDiveBB = toDive.getBoundingBox2D();
+
+	// only takes into account dimensions, not position
+	if (!Utils.fits(toDiveBB, container)) {
+	    return null;
+	}
 	double dx = toDiveBB.getWidth()
 		/ Constants.DIVE_HORIZONTAL_DISPLACEMENT_FACTOR;
 	double initialX = 0;
@@ -671,7 +676,11 @@ public class Bin {
 	    }
 	    initialX += dx;
 	    toDive.placeInPosition(initialX, 0);
-	    if(!Utils.fits(toDive.getBoundingBox2D(), container)){
+
+	    // verify that the pieces hasn't exceeded the container's boundaries
+	    toDiveBB = toDive.getBoundingBox2D();
+	    if ((initialX + toDiveBB.getWidth() > container.getMaxX())
+		    || (toDiveBB.getHeight() > container.getMaxY())) {
 		return null;
 	    }
 	}

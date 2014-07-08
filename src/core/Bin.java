@@ -671,9 +671,9 @@ public class Bin {
 	    }
 	    initialX += dx;
 	    toDive.placeInPosition(initialX, 0);
-	    if (initialX + toDive.getBoundingBox2D().getWidth() > container
-		    .getMaxX())
+	    if(!Utils.fits(toDive.getBoundingBox2D(), container)){
 		return null;
+	    }
 	}
 
     }

@@ -79,9 +79,9 @@ public class Client {
 		    points[j - 1] = new MPointDouble(x, y);
 		}
 		MArea outer = pieces[n - 1];
-		outer.placeInPosition(0, 0);
+		//outer.placeInPosition(0, 0);
 		MArea inner = new MArea(points, n);
-		inner.placeInPosition(0, 0);
+		//inner.placeInPosition(0, 0);
 		MArea area = new MArea(outer, inner);
 		area.placeInPosition(0, 0);
 		pieces[n - 1] = area;

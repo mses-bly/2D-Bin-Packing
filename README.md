@@ -7,6 +7,11 @@ The main goal of the project is to provide a starting point for developers who d
 
 This is a work in progress, so feel free to write me to moises.baly@gmail.com for bugs, suggestions, improvements or whatever you consider is appropriate. Also, feel free to download, modify or use the code in any project you need.
 
+A demo for the packing of a bin with irregular parts can be found clicking in the image below:
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=Oux4w0iFFww
+" target="_blank"><img src="http://img.youtube.com/vi/Oux4w0iFFww/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="300" height="200" border="10" align="center"/></a>
+
 **Basic use**
 
 You can find a jar package with executable code to give you an idea of what the application does. To execute the jar file use:

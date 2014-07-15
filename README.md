@@ -10,7 +10,7 @@ This is a work in progress, so feel free to write me to moises.baly@gmail.com fo
 A demo for the packing of a bin with irregular parts can be found clicking in the image below:
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=Oux4w0iFFww
 " target="_blank"><img src="http://img.youtube.com/vi/Oux4w0iFFww/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="300" height="200" border="10" align="center"/></a>
+alt="IMAGE ALT TEXT HERE" width="300" height="200" align="center"/></a>
 
 **Basic use**
 

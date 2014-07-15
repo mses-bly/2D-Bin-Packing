@@ -374,6 +374,7 @@ public class Bin {
 			compress(total, auxArea, new Rectangle(dimension),
 				new MVector(-1, 1));
 			placedPieces[currentIndex] = auxArea;
+			computeFreeRectangles(auxArea.getBoundingBox2D(), freeRectangles);
 			eliminateNonMaximal();
 			movement = true;
 			break;
@@ -387,6 +388,7 @@ public class Bin {
 			    compress(total, auxArea, new Rectangle(dimension),
 				    new MVector(-1, 1));
 			    placedPieces[currentIndex] = auxArea;
+			    computeFreeRectangles(auxArea.getBoundingBox2D(), freeRectangles);
 			    eliminateNonMaximal();
 			    movement = true;
 			    break;

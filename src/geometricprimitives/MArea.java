@@ -281,9 +281,6 @@ public class MArea extends Area {
 	g2d.draw(newArea);
 	g2d.setColor(Color.LIGHT_GRAY);
 	g2d.fill(newArea);
-	;
-	// g2d.drawString(String.valueOf(ID), (int)newArea.getBounds2D().getX(),
-	// (int)newArea.getBounds2D().getY());
     }
 
     /**
@@ -320,16 +317,20 @@ public class MArea extends Area {
 	AffineTransform transform = new AffineTransform();
 	double thisX = bb.getX();
 	double dx = Math.abs(thisX - x);
-	if (thisX <= x)
+	if (thisX <= x){
 	    thisX = dx;
-	else
+	}
+	else{
 	    thisX = -dx;
+	}
 	double thisY = bb.getY();
 	double dy = Math.abs(thisY - y);
-	if (thisY <= y)
+	if (thisY <= y){
 	    thisY = dy;
-	else
+	}
+	else{
 	    thisY = -dy;
+	}
 	transform.translate(thisX, thisY);
 	this.transform(transform);
     }
@@ -377,17 +378,21 @@ public class MArea extends Area {
 	// left bounds
 	double leftX = boundingBox.getX();
 	double leftY = boundingBox.getY();
-	if (leftX < rectangle.getX())
+	if (leftX < rectangle.getX()){
 	    return false;
-	if (leftY < rectangle.getY())
+	}
+	if (leftY < rectangle.getY()){
 	    return false;
+	}
 	// right bounds
 	double rightX = boundingBox.getX() + boundingBox.getWidth();
 	double rightY = boundingBox.getY() + boundingBox.getHeight();
-	if (rightX > (rectangle.getX() + rectangle.getWidth()))
+	if (rightX > (rectangle.getX() + rectangle.getWidth())){
 	    return false;
-	if (rightY > (rectangle.getY() + rectangle.getHeight()))
+	}
+	if (rightY > (rectangle.getY() + rectangle.getHeight())){
 	    return false;
+	}
 	return true;
     }
 
@@ -401,10 +406,10 @@ public class MArea extends Area {
      */
     public boolean isAbove(Rectangle rectangle) {
 	Rectangle boundingBox = getBoundingBox();
-
 	double leftY = boundingBox.getY() + this.getBoundingBox().getHeight();
-	if (leftY >= (rectangle.getY() + rectangle.getHeight()))
+	if (leftY >= (rectangle.getY() + rectangle.getHeight())){
 	    return false;
+	}
 	return true;
     }
 
@@ -419,8 +424,9 @@ public class MArea extends Area {
      */
     public boolean isToLeft(Rectangle rectangle) {
 	Rectangle boundingBox = getBoundingBox();
-	if (boundingBox.getMinX() > rectangle.getMaxX())
+	if (boundingBox.getMinX() > rectangle.getMaxX()){
 	    return false;
+	}
 	return true;
     }
 
@@ -438,10 +444,12 @@ public class MArea extends Area {
     private static class ByArea implements Comparator<MArea> {
 	@Override
 	public int compare(MArea o1, MArea o2) {
-	    if (o1.area > o2.area)
+	    if (o1.area > o2.area){
 		return 1;
-	    if (o1.area < o2.area)
+	    }
+	    if (o1.area < o2.area){
 		return -1;
+	    }
 	    return 0;
 	}
     }
@@ -456,10 +464,12 @@ public class MArea extends Area {
 	    Rectangle o2BB = o2.getBoundingBox();
 	    double bb1 = o1BB.getWidth() * o1BB.getHeight();
 	    double bb2 = o2BB.getWidth() * o2BB.getHeight();
-	    if (bb1 < bb2)
+	    if (bb1 < bb2){
 		return -1;
-	    if (bb1 > bb2)
+	    }
+	    if (bb1 > bb2){
 		return 1;
+	    }
 	    return 0;
 	}
     }

@@ -13,8 +13,6 @@ import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Comparator;
-
-import utils.RedBlackBST;
 import utils.Utils;
 
 /**
@@ -214,19 +212,14 @@ public class MArea extends Area {
      * @return all contour points in this area, without repetition.
      */
     public MPointDouble[] getPoints() {
-	RedBlackBST<MPointDouble, Boolean> bst = new RedBlackBST<MPointDouble, Boolean>();
 	ArrayList<MPointDouble> points = new ArrayList<MPointDouble>();
 	for (PathIterator pi = this.getPathIterator(null); !pi.isDone(); pi
 		.next()) {
 	    double[] coordinates = new double[6];
 	    int type = pi.currentSegment(coordinates);
 	    if (type != PathIterator.SEG_CLOSE) {
-		MPointDouble p = new MPointDouble(coordinates[0],
-			coordinates[1]);
-		if (!bst.contains(p)) {
-		    points.add(p);
-		    bst.put(p, true);
-		}
+		MPointDouble p = new MPointDouble(coordinates[0],coordinates[1]);
+		points.add(p);
 	    }
 	}
 	MPointDouble[] res = points.toArray(new MPointDouble[0]);
@@ -435,6 +428,7 @@ public class MArea extends Area {
     }
 
     public static final Comparator<MArea> BY_AREA = new ByArea();
+    
     public static final Comparator<MArea> BY_BOUNDING_BOX_AREA = new ByBoundingBoxArea();
 
     /**

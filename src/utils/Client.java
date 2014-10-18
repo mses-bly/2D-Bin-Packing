@@ -14,6 +14,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -29,12 +30,12 @@ import core.BinPacking;
 public class Client {
 
     public static void main(String[] args) {
-	if (args.length < 1) {
+	if (args.length < 0) {
 	    printUsage();
 	} else {
 	    try {
-		String command = args[0];
-		launch(command);
+		//String command = args[0];
+		launch("nothinh");
 	    } catch (IOException e) {
 		System.out
 			.println("An error ocurred while processing your file. Please make sure the file follows the specified format. See trace below");
@@ -49,7 +50,8 @@ public class Client {
     }
 
     private static void launch(String fileName) throws IOException {
-	Scanner sc = new Scanner(new File(fileName));
+//	Scanner sc = new Scanner(new File(fileName));
+	Scanner sc = new Scanner(new File("D:/Moises/Proyectos/2D-Bin-Packing/2D-Bin-Packing/src/test_files/Shapes0.txt"));
 	Dimension binDimension = new Dimension(sc.nextInt(), sc.nextInt());
 	double x1 = binDimension.getWidth();
 	double y1 = binDimension.getHeight();
@@ -86,14 +88,19 @@ public class Client {
 		area.placeInPosition(0, 0);
 		pieces[n - 1] = area;
 	    } else {
-		MPointDouble[] points = new MPointDouble[src.length];
+		ArrayList<MPointDouble> pointsArrayList = new ArrayList<MPointDouble>();
+		HashSet<MPointDouble> set = new HashSet<MPointDouble>();
 		for (int j = 0; j < src.length; j++) {
 		    String[] point = src[j].split(",");
 		    double x = Double.valueOf(point[0]);
 		    double y = Double.valueOf(point[1]);
-		    points[j] = new MPointDouble(x, y);
+		    MPointDouble thisPoint = new MPointDouble(x, y);
+		    if(!set.contains(thisPoint)){
+			pointsArrayList.add(thisPoint);
+			set.add(thisPoint);
+		    }
 		}
-		pieces[n] = new MArea(points, n + 1);
+		pieces[n] = new MArea(pointsArrayList.toArray(new MPointDouble[0]), n + 1);
 		++n;
 	    }
 	}

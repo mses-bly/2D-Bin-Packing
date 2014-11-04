@@ -55,8 +55,7 @@ public class Utils {
      * @see Rectangle2D
      */
     public static boolean fits(Rectangle2D o1, Rectangle2D o2) {
-	return (o1.getHeight() <= o2.getHeight() && o1.getWidth() <= o2
-		.getWidth());
+	return (o1.getHeight() <= o2.getHeight() && o1.getWidth() <= o2.getWidth());
     }
 
     /**
@@ -72,8 +71,7 @@ public class Utils {
      * @see Rectangle2D
      */
     public static boolean fitsRotated(Rectangle2D o1, Rectangle2D o2) {
-	return (o1.getHeight() <= o2.getWidth() && o1.getWidth() <= o2
-		.getHeight());
+	return (o1.getHeight() <= o2.getWidth() && o1.getWidth() <= o2.getHeight());
     }
 
     /**
@@ -87,8 +85,7 @@ public class Utils {
      * @see Rectangle
      */
     public static boolean equalDimension(Rectangle o1, Rectangle o2) {
-	return (o1.getWidth() == o2.getWidth() && o1.getHeight() == o2
-		.getHeight());
+	return (o1.getWidth() == o2.getWidth() && o1.getHeight() == o2.getHeight());
     }
 
     /**
@@ -108,15 +105,11 @@ public class Utils {
      * @see Dimension
      * @see IOException
      */
-    public static void drawMAreasToFile(ArrayList<MArea> pieces,
-	    Dimension viewPortDimension, Dimension binDimension, String name)
-	    throws IOException {
-	BufferedImage img = new BufferedImage(viewPortDimension.width + 40,
-		viewPortDimension.height + 40, BufferedImage.TYPE_INT_RGB);
+    public static void drawMAreasToFile(ArrayList<MArea> pieces, Dimension viewPortDimension, Dimension binDimension, String name) throws IOException {
+	BufferedImage img = new BufferedImage(viewPortDimension.width + 40, viewPortDimension.height + 40, BufferedImage.TYPE_INT_RGB);
 	Graphics2D g2d = img.createGraphics();
 	g2d.setColor(Color.WHITE);
-	g2d.fillRect(0, 0, viewPortDimension.width + 40,
-		viewPortDimension.height + 40);
+	g2d.fillRect(0, 0, viewPortDimension.width + 40, viewPortDimension.height + 40);
 	g2d.setColor(Color.BLUE);
 	g2d.drawRect(20, 20, viewPortDimension.width, viewPortDimension.height);
 	g2d.setColor(Color.BLACK);
@@ -139,31 +132,25 @@ public class Utils {
 	// Flip the image vertically
 	AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
 	tx.translate(0, -image.getHeight(null));
-	AffineTransformOp op = new AffineTransformOp(tx,
-		AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+	AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 	image = op.filter(image, null);
 	return image;
     }
 
-    public MArea preprocessing(MArea piece, Rectangle2D.Double container)
-	    throws Exception {
+    public MArea preprocessing(MArea piece, Rectangle2D.Double container) throws Exception {
 	Rectangle2D.Double bbox = piece.getBoundingBox2D();
 	if (bbox.getWidth() > container.getWidth()) {
 	    piece.rotate(90);
 	    bbox = piece.getBoundingBox2D();
-	    if (bbox.getWidth() > container.getWidth()
-		    || bbox.getHeight() > container.getHeight())
-		throw new Exception(
-			"The piece dimensions seem to be bigger than the container's");
+	    if (bbox.getWidth() > container.getWidth() || bbox.getHeight() > container.getHeight())
+		throw new Exception("The piece dimensions seem to be bigger than the container's");
 	    return piece;
 	}
 	if (bbox.getHeight() > container.getHeight()) {
 	    piece.rotate(90);
 	    bbox = piece.getBoundingBox2D();
-	    if (bbox.getWidth() > container.getWidth()
-		    || bbox.getHeight() > container.getHeight())
-		throw new Exception(
-			"The piece dimensions seem to be bigger than the container's");
+	    if (bbox.getWidth() > container.getWidth() || bbox.getHeight() > container.getHeight())
+		throw new Exception("The piece dimensions seem to be bigger than the container's");
 	    return piece;
 	}
 	return piece;

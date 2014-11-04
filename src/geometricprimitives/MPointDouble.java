@@ -11,8 +11,7 @@ import utils.Utils;
  * 
  * @author Moises Baly
  */
-public class MPointDouble extends Point2D.Double implements
-	Comparable<MPointDouble> {
+public class MPointDouble extends Point2D.Double implements Comparable<MPointDouble> {
 
     public MPointDouble(double x, double y) {
 	super(x, y);

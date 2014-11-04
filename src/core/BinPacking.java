@@ -19,10 +19,8 @@ public class BinPacking {
      *            dimensions of the view port for the bin images generation
      * @return list of generated bins.
      */
-    public static Bin[] BinPackingStrategy(MArea[] pieces,
-	    Dimension binDimension, Dimension viewPortDimension) {
-	System.out
-		.println(".............Started computation of bin placements.............");
+    public static Bin[] BinPackingStrategy(MArea[] pieces, Dimension binDimension, Dimension viewPortDimension) {
+	System.out.println(".............Started computation of bin placements.............");
 	ArrayList<Bin> bins = new ArrayList<Bin>();
 	int nbin = 0;
 	boolean stillToPlace = true;

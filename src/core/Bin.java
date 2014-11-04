@@ -48,8 +48,7 @@ public class Bin {
     public Bin(Dimension dimension) {
 	this.dimension = new Dimension(dimension.width, dimension.height);
 	NPlaced = 0;
-	freeRectangles.add(new Rectangle2D.Double(0, 0, dimension.getWidth(),
-		dimension.getHeight()));
+	freeRectangles.add(new Rectangle2D.Double(0, 0, dimension.getWidth(), dimension.getHeight()));
     }
 
     /**
@@ -154,8 +153,7 @@ public class Bin {
 	    if (where != -1) {
 		Rectangle2D.Double freeRect = freeRectangles.get(where);
 		MArea placed = new MArea(pieces[i], pieces[i].getID());
-		placed.placeInPosition(freeRect.getX(), freeRect.getMaxY()
-			- placed.getBoundingBox().getHeight());
+		placed.placeInPosition(freeRect.getX(), freeRect.getMaxY() - placed.getBoundingBox().getHeight());
 		if (!placed.intersection(total)) {
 		    Rectangle2D.Double pieceBB = placed.getBoundingBox2D();
 		    splitScheme(freeRect, pieceBB, freeRectangles);
@@ -185,11 +183,13 @@ public class Bin {
      *            piece to place inside an empty rectangular space.
      * @param freeRectangles
      *            list of empty rectangular spaces.
-     * @return <ul><li><b>-1</b> if not valid position was found.</li> <li>
-     *         <b>position</b> where the piece can be placed, otherwise.</li></ul>
+     * @return <ul>
+     *         <li><b>-1</b> if not valid position was found.</li>
+     *         <li>
+     *         <b>position</b> where the piece can be placed, otherwise.</li>
+     *         </ul>
      */
-    private int findWhereToPlace(MArea piece,
-	    ArrayList<Rectangle2D.Double> freeRectangles) {
+    private int findWhereToPlace(MArea piece, ArrayList<Rectangle2D.Double> freeRectangles) {
 	boolean lastRotated = false;
 	Rectangle2D pieceBB = piece.getBoundingBox2D();
 	int res = -1;
@@ -197,8 +197,7 @@ public class Bin {
 	for (int i = freeRectangles.size() - 1; i >= 0; i--) {
 	    Rectangle2D.Double freeRect = freeRectangles.get(i);
 	    if (Utils.fits(pieceBB, freeRect)) {
-		double m = Math.min(freeRect.getWidth() - pieceBB.getWidth(),
-			freeRect.getHeight() - pieceBB.getHeight());
+		double m = Math.min(freeRect.getWidth() - pieceBB.getWidth(), freeRect.getHeight() - pieceBB.getHeight());
 		if (m < min) {
 		    min = m;
 		    res = i;
@@ -210,8 +209,7 @@ public class Bin {
 		}
 	    }
 	    if (Utils.fitsRotated(pieceBB, freeRect)) {
-		double m = Math.min(freeRect.getWidth() - pieceBB.getHeight(),
-			freeRect.getHeight() - pieceBB.getWidth());
+		double m = Math.min(freeRect.getWidth() - pieceBB.getHeight(), freeRect.getHeight() - pieceBB.getWidth());
 		if (m < min) {
 		    min = m;
 		    res = i;
@@ -237,25 +235,20 @@ public class Bin {
      * @param freeRectangles
      *            list of free spaces in the bin.
      */
-    private void splitScheme(Rectangle2D.Double usedFreeArea,
-	    Rectangle2D.Double justPlacedPieceBB,
-	    ArrayList<Rectangle2D.Double> freeRectangles) {
+    private void splitScheme(Rectangle2D.Double usedFreeArea, Rectangle2D.Double justPlacedPieceBB, ArrayList<Rectangle2D.Double> freeRectangles) {
 	freeRectangles.remove(usedFreeArea);
 	// top
 	double widht = usedFreeArea.getWidth();
 	double height = justPlacedPieceBB.getY() - usedFreeArea.getY();
 	if (height > 0) {
-	    Rectangle2D.Double upR = new Rectangle2D.Double(
-		    usedFreeArea.getX(), usedFreeArea.getY(), widht, height);
+	    Rectangle2D.Double upR = new Rectangle2D.Double(usedFreeArea.getX(), usedFreeArea.getY(), widht, height);
 	    freeRectangles.add(upR);
 	}
 	// right
 	widht = usedFreeArea.getMaxX() - justPlacedPieceBB.getMaxX();
 	height = usedFreeArea.getHeight();
 	if (widht > 0) {
-	    Rectangle2D.Double rightR = new Rectangle2D.Double(
-		    justPlacedPieceBB.getMaxX(), usedFreeArea.getY(), widht,
-		    height);
+	    Rectangle2D.Double rightR = new Rectangle2D.Double(justPlacedPieceBB.getMaxX(), usedFreeArea.getY(), widht, height);
 	    freeRectangles.add(rightR);
 	}
     }
@@ -269,21 +262,17 @@ public class Bin {
      * @param freeRectangles
      *            free rectangular boxes in the bin.
      */
-    private void computeFreeRectangles(Rectangle2D.Double justPlacedPieceBB,
-	    ArrayList<Rectangle2D.Double> freeRectangles) {
-	Rectangle2D.Double[] rects = freeRectangles
-		.toArray(new Rectangle2D.Double[0]);
+    private void computeFreeRectangles(Rectangle2D.Double justPlacedPieceBB, ArrayList<Rectangle2D.Double> freeRectangles) {
+	Rectangle2D.Double[] rects = freeRectangles.toArray(new Rectangle2D.Double[0]);
 	for (Rectangle2D.Double freeR : rects) {
 	    if (freeR.intersects(justPlacedPieceBB)) {
 		freeRectangles.remove(freeR);
-		Rectangle2D rIntersection = freeR
-			.createIntersection(justPlacedPieceBB);
+		Rectangle2D rIntersection = freeR.createIntersection(justPlacedPieceBB);
 		// top
 		double widht = freeR.getWidth();
 		double height = rIntersection.getY() - freeR.getY();
 		if (height > 0) {
-		    Rectangle2D.Double upR = new Rectangle2D.Double(
-			    freeR.getX(), freeR.getY(), widht, height);
+		    Rectangle2D.Double upR = new Rectangle2D.Double(freeR.getX(), freeR.getY(), widht, height);
 		    freeRectangles.add(upR);
 		}
 
@@ -291,8 +280,7 @@ public class Bin {
 		widht = rIntersection.getX() - freeR.getX();
 		height = freeR.getHeight();
 		if (widht > 0) {
-		    Rectangle2D.Double leftR = new Rectangle2D.Double(
-			    freeR.getX(), freeR.getY(), widht, height);
+		    Rectangle2D.Double leftR = new Rectangle2D.Double(freeR.getX(), freeR.getY(), widht, height);
 		    freeRectangles.add(leftR);
 		}
 
@@ -300,9 +288,7 @@ public class Bin {
 		widht = freeR.getWidth();
 		height = freeR.getMaxY() - rIntersection.getMaxY();
 		if (height > 0) {
-		    Rectangle2D.Double bottomR = new Rectangle2D.Double(
-			    freeR.getX(), rIntersection.getMaxY(), widht,
-			    height);
+		    Rectangle2D.Double bottomR = new Rectangle2D.Double(freeR.getX(), rIntersection.getMaxY(), widht, height);
 		    freeRectangles.add(bottomR);
 		}
 
@@ -310,9 +296,7 @@ public class Bin {
 		widht = freeR.getMaxX() - rIntersection.getMaxX();
 		height = freeR.getHeight();
 		if (widht > 0) {
-		    Rectangle2D.Double rightR = new Rectangle2D.Double(
-			    rIntersection.getMaxX(), freeR.getY(), widht,
-			    height);
+		    Rectangle2D.Double rightR = new Rectangle2D.Double(rIntersection.getMaxX(), freeR.getY(), widht, height);
 		    freeRectangles.add(rightR);
 		}
 	    }
@@ -325,8 +309,7 @@ public class Bin {
      * called from {@link #boundingBoxPacking}
      */
     private void eliminateNonMaximal() {
-	Rectangle2D.Double[] freeRectArray = freeRectangles
-		.toArray(new Rectangle2D.Double[0]);
+	Rectangle2D.Double[] freeRectArray = freeRectangles.toArray(new Rectangle2D.Double[0]);
 	Arrays.sort(freeRectArray, RECTANGLE_AREA_COMPARATOR);
 	freeRectangles.clear();
 	for (int i = 0; i < freeRectArray.length; i++) {
@@ -349,8 +332,11 @@ public class Bin {
      * 
      * @param indexLimit
      *            lower left limit when applying this strategy.
-     * @return <ul><li><b>true</b> if some piece changed its position, that is, if
-     *         was placed inside other.</li> <li><b>false</b> otherwise.</li></ul>
+     * @return <ul>
+     *         <li><b>true</b> if some piece changed its position, that is, if
+     *         was placed inside other.</li>
+     *         <li><b>false</b> otherwise.</li>
+     *         </ul>
      */
 
     private boolean moveAndReplace(int indexLimit) {
@@ -371,8 +357,7 @@ public class Bin {
 		    auxArea = sweep(container, auxArea, total);
 		    if (auxArea != null) {
 			freeRectangles.add(currentArea.getBoundingBox2D());
-			compress(total, auxArea, new Rectangle(dimension),
-				new MVector(-1, 1));
+			compress(total, auxArea, new Rectangle(dimension), new MVector(-1, 1));
 			placedPieces[currentIndex] = auxArea;
 			computeFreeRectangles(auxArea.getBoundingBox2D(), freeRectangles);
 			eliminateNonMaximal();
@@ -385,8 +370,7 @@ public class Bin {
 			auxArea = sweep(container, auxArea, total);
 			if (auxArea != null) {
 			    freeRectangles.add(currentArea.getBoundingBox2D());
-			    compress(total, auxArea, new Rectangle(dimension),
-				    new MVector(-1, 1));
+			    compress(total, auxArea, new Rectangle(dimension), new MVector(-1, 1));
 			    placedPieces[currentIndex] = auxArea;
 			    computeFreeRectangles(auxArea.getBoundingBox2D(), freeRectangles);
 			    eliminateNonMaximal();
@@ -427,29 +411,24 @@ public class Bin {
 		return inside;
 	MArea lastValidPosition = null;
 	double Xcontainer = container.getBoundingBox().getX();
-	double dx = inside.getBoundingBox().getWidth()
-		/ Constants.DX_SWEEP_FACTOR;
-	double dy = inside.getBoundingBox().getHeight()
-		/ Constants.DY_SWEEP_FACTOR;
+	double dx = inside.getBoundingBox().getWidth() / Constants.DX_SWEEP_FACTOR;
+	double dy = inside.getBoundingBox().getHeight() / Constants.DY_SWEEP_FACTOR;
 	Rectangle2D.Double containerBB = container.getBoundingBox2D();
 	MArea originalArea = new MArea(inside, inside.getID());
 	while (true) {
 	    boolean check = false;
 	    inside.move(new MVector(dx, 0));
-	    if (!inside.intersection(collisionArea)
-		    && inside.isToLeft(new Rectangle(dimension)))
+	    if (!inside.intersection(collisionArea) && inside.isToLeft(new Rectangle(dimension)))
 		check = true;
 	    Rectangle2D.Double insideBB = inside.getBoundingBox2D();
 	    if (!containerBB.contains(insideBB.getX(), insideBB.getY())) {
-		if (!inside.intersection(collisionArea)
-			&& inside.isInside(new Rectangle(dimension))) {
+		if (!inside.intersection(collisionArea) && inside.isInside(new Rectangle(dimension))) {
 		    check = true;
 		    lastValidPosition = new MArea(inside, inside.getID());
 		    break;
 
 		}
-		inside.move(new MVector(
-			-(inside.getBoundingBox().getX() - Xcontainer), 0));
+		inside.move(new MVector(-(inside.getBoundingBox().getX() - Xcontainer), 0));
 		inside.move(new MVector(0, dy));
 		if (!inside.isAbove(container.getBoundingBox())) {
 		    check = false;
@@ -461,8 +440,7 @@ public class Bin {
 		    check = true;
 	    }
 	    if (check) {
-		if (!inside.intersection(collisionArea)
-			&& inside.isInside(new Rectangle(dimension))) {
+		if (!inside.intersection(collisionArea) && inside.isInside(new Rectangle(dimension))) {
 		    lastValidPosition = new MArea(inside, inside.getID());
 		    break;
 		}
@@ -475,16 +453,10 @@ public class Bin {
 	if (lastValidPosition != null) {
 	    MArea containerBBArea = new MArea(containerBB, 0);
 	    if (!lastValidPosition.intersection(containerBBArea)) {
-		MPointDouble initialPos = new MPointDouble(originalArea
-			.getBoundingBox2D().getX(), originalArea
-			.getBoundingBox2D().getY());
-		MPointDouble finalPos = new MPointDouble(lastValidPosition
-			.getBoundingBox2D().getX(), lastValidPosition
-			.getBoundingBox2D().getY());
-		MPointDouble containerPos = new MPointDouble(
-			containerBB.getX(), containerBB.getY());
-		if (containerPos.distance(finalPos) > containerPos
-			.distance(initialPos)) {
+		MPointDouble initialPos = new MPointDouble(originalArea.getBoundingBox2D().getX(), originalArea.getBoundingBox2D().getY());
+		MPointDouble finalPos = new MPointDouble(lastValidPosition.getBoundingBox2D().getX(), lastValidPosition.getBoundingBox2D().getY());
+		MPointDouble containerPos = new MPointDouble(containerBB.getX(), containerBB.getY());
+		if (containerPos.distance(finalPos) > containerPos.distance(initialPos)) {
 		    return null;
 		}
 	    }
@@ -500,8 +472,7 @@ public class Bin {
     /**
      * Provides an area based comparison between two rectangles.
      */
-    private static class RectangleAreaComparator implements
-	    Comparator<Rectangle2D> {
+    private static class RectangleAreaComparator implements Comparator<Rectangle2D> {
 
 	@Override
 	public int compare(Rectangle2D arg0, Rectangle2D arg1) {
@@ -528,8 +499,7 @@ public class Bin {
 	for (MArea a : this.placedPieces)
 	    total.add(a);
 	boolean moved = true;
-	Rectangle container = new Rectangle(0, 0, dimension.width,
-		dimension.height);
+	Rectangle container = new Rectangle(0, 0, dimension.width, dimension.height);
 	while (moved) {
 	    for (MArea a : this.placedPieces) {
 		total.subtract(a);
@@ -558,8 +528,7 @@ public class Bin {
      *         <b>false</b> otherwise.</li>
      *         </ul>
      */
-    private boolean compress(MArea collisionArea, MArea compressArea,
-	    Rectangle container, MVector vector) {
+    private boolean compress(MArea collisionArea, MArea compressArea, Rectangle container, MVector vector) {
 	int movement = 0;
 	if (vector.getX() == 0 && vector.getY() == 0)
 	    return false;
@@ -571,8 +540,7 @@ public class Bin {
 		MVector u = new MVector(0, vector.getY());
 		compressArea.move(u);
 		movement++;
-		if (compressArea.isInside(container)
-			&& !compressArea.intersection(collisionArea))
+		if (compressArea.isInside(container) && !compressArea.intersection(collisionArea))
 		    moved = true;
 		else {
 		    compressArea.move(u.inverse());
@@ -585,8 +553,7 @@ public class Bin {
 		    MVector u = new MVector(vector.getX(), 0);
 		    compressArea.move(u);
 		    movement++;
-		    if (compressArea.isInside(container)
-			    && !compressArea.intersection(collisionArea))
+		    if (compressArea.isInside(container) && !compressArea.intersection(collisionArea))
 			moved = true;
 		    else {
 			compressArea.move(u.inverse());
@@ -659,16 +626,14 @@ public class Bin {
      *         <li><b>MArea</b> a new MArea in the valid position found.</li>
      *         </ul>
      */
-    private MArea dive(MArea toDive, Rectangle container, MArea collisionArea,
-	    MVector vector) {
+    private MArea dive(MArea toDive, Rectangle container, MArea collisionArea, MVector vector) {
 	Rectangle2D.Double toDiveBB = toDive.getBoundingBox2D();
 
 	// only takes into account dimensions, not position
 	if (!Utils.fits(toDiveBB, container)) {
 	    return null;
 	}
-	double dx = toDiveBB.getWidth()
-		/ Constants.DIVE_HORIZONTAL_DISPLACEMENT_FACTOR;
+	double dx = toDiveBB.getWidth() / Constants.DIVE_HORIZONTAL_DISPLACEMENT_FACTOR;
 	double initialX = 0;
 	while (true) {
 	    toDive.placeInPosition(initialX, 0);
@@ -681,8 +646,7 @@ public class Bin {
 
 	    // verify that the pieces hasn't exceeded the container's boundaries
 	    toDiveBB = toDive.getBoundingBox2D();
-	    if ((initialX + toDiveBB.getWidth() > container.getMaxX())
-		    || (toDiveBB.getHeight() > container.getMaxY())) {
+	    if ((initialX + toDiveBB.getWidth() > container.getMaxX()) || (toDiveBB.getHeight() > container.getMaxY())) {
 		return null;
 	    }
 	}

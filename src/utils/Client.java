@@ -34,24 +34,20 @@ public class Client {
 	    printUsage();
 	} else {
 	    try {
-		//String command = args[0];
-		launch("nothinh");
+		String command = args[0];
+		launch(command);
 	    } catch (IOException e) {
-		System.out
-			.println("An error ocurred while processing your file. Please make sure the file follows the specified format. See trace below");
-		System.out
-			.println("****************************TRACE***************************");
+		System.out.println("An error ocurred while processing your file. Please make sure the file follows the specified format. See trace below");
+		System.out.println("****************************TRACE***************************");
 		e.printStackTrace();
-		System.out
-			.println("************************************************************");
+		System.out.println("************************************************************");
 		printFileSpecifications();
 	    }
 	}
     }
 
     private static void launch(String fileName) throws IOException {
-//	Scanner sc = new Scanner(new File(fileName));
-	Scanner sc = new Scanner(new File("D:/Moises/Proyectos/2D-Bin-Packing/2D-Bin-Packing/src/test_files/Shapes0.txt"));
+	Scanner sc = new Scanner(new File(fileName));
 	Dimension binDimension = new Dimension(sc.nextInt(), sc.nextInt());
 	double x1 = binDimension.getWidth();
 	double y1 = binDimension.getHeight();
@@ -81,9 +77,9 @@ public class Client {
 		    points[j - 1] = new MPointDouble(x, y);
 		}
 		MArea outer = pieces[n - 1];
-		//outer.placeInPosition(0, 0);
+		// outer.placeInPosition(0, 0);
 		MArea inner = new MArea(points, n);
-		//inner.placeInPosition(0, 0);
+		// inner.placeInPosition(0, 0);
 		MArea area = new MArea(outer, inner);
 		area.placeInPosition(0, 0);
 		pieces[n - 1] = area;
@@ -95,7 +91,7 @@ public class Client {
 		    double x = Double.valueOf(point[0]);
 		    double y = Double.valueOf(point[1]);
 		    MPointDouble thisPoint = new MPointDouble(x, y);
-		    if(!set.contains(thisPoint)){
+		    if (!set.contains(thisPoint)) {
 			pointsArrayList.add(thisPoint);
 			set.add(thisPoint);
 		    }
@@ -106,20 +102,17 @@ public class Client {
 	}
 	sc.close();
 	System.out.println("");
-	Bin[] bins = BinPacking.BinPackingStrategy(pieces, binDimension,
-		viewPortDimension);
+	Bin[] bins = BinPacking.BinPackingStrategy(pieces, binDimension, viewPortDimension);
 	System.out.println("Generating bin images.........................");
 	drawbinToFile(bins, viewPortDimension);
 	System.out.println();
-	System.out
-		.println("Generating bin description files....................");
+	System.out.println("Generating bin description files....................");
 	createOutputFiles(bins);
 	System.out.println("DONE!!!");
 
     }
 
-    private static void drawbinToFile(Bin[] bins, Dimension viewPortDimension)
-	    throws IOException {
+    private static void drawbinToFile(Bin[] bins, Dimension viewPortDimension) throws IOException {
 	for (int i = 0; i < bins.length; i++) {
 
 	    MArea[] areasInThisbin = bins[i].getPlacedPieces();
@@ -127,28 +120,23 @@ public class Client {
 	    for (MArea area : areasInThisbin) {
 		areas.add(area);
 	    }
-	    Utils.drawMAreasToFile(areas, viewPortDimension,
-		    bins[i].getDimension(), ("Bin-" + String.valueOf(i + 1)));
-	    System.out.println("Generated image for bin "
-		    + String.valueOf(i + 1));
+	    Utils.drawMAreasToFile(areas, viewPortDimension, bins[i].getDimension(), ("Bin-" + String.valueOf(i + 1)));
+	    System.out.println("Generated image for bin " + String.valueOf(i + 1));
 	}
     }
 
     private static void createOutputFiles(Bin[] bins) throws IOException {
 	for (int i = 0; i < bins.length; i++) {
-	    PrintWriter writer = new PrintWriter("Bin-" + String.valueOf(i + 1)
-		    + ".txt", "UTF-8");
+	    PrintWriter writer = new PrintWriter("Bin-" + String.valueOf(i + 1) + ".txt", "UTF-8");
 	    writer.println(bins[i].getPlacedPieces().length);
 	    MArea[] areasInThisbin = bins[i].getPlacedPieces();
 	    for (MArea area : areasInThisbin) {
 		double offsetX = area.getBoundingBox2D().getX();
 		double offsetY = area.getBoundingBox2D().getY();
-		writer.println(area.getID() + " " + area.getRotation() + " "
-			+ offsetX + "," + offsetY);
+		writer.println(area.getID() + " " + area.getRotation() + " " + offsetX + "," + offsetY);
 	    }
 	    writer.close();
-	    System.out.println("Generated points file for bin "
-		    + String.valueOf(i + 1));
+	    System.out.println("Generated points file for bin " + String.valueOf(i + 1));
 	}
     }
 
@@ -157,23 +145,18 @@ public class Client {
 	System.out.println("Usage:");
 	System.out.println();
 	System.out.println("$java -jar 2DBinpacking.jar <file name>");
-	System.out
-		.println("<file name>: file describing pieces (see file structure specifications below).");
+	System.out.println("<file name>: file describing pieces (see file structure specifications below).");
 	System.out.println();
 	System.out.println();
 	printFileSpecifications();
     }
 
     private static void printFileSpecifications() {
-	System.out
-		.println("The input pieces file should be structured as follows: ");
-	System.out
-		.println("First line: 'width  height',integer bin dimensions separates by a space");
-	System.out
-		.println("Second line: 'number of pieces', a single integer specifying the number of pieces in this file.");
-	System.out
-		.println("N lines: each piece contained in a single line-> 'x0,y0 x1,y1 x2,y2 ... xn,yn'.NOTE "
-			+ "THAT FIGURE POINTS IN DOUBLE FORMAT MUST BE SPECIFIED IN COUNTERCLOCKWISE ORDER USING THE CARTESIAN COORDINATE SYSTEM.");
+	System.out.println("The input pieces file should be structured as follows: ");
+	System.out.println("First line: 'width  height',integer bin dimensions separates by a space");
+	System.out.println("Second line: 'number of pieces', a single integer specifying the number of pieces in this file.");
+	System.out.println("N lines: each piece contained in a single line-> 'x0,y0 x1,y1 x2,y2 ... xn,yn'.NOTE "
+		+ "THAT FIGURE POINTS IN DOUBLE FORMAT MUST BE SPECIFIED IN COUNTERCLOCKWISE ORDER USING THE CARTESIAN COORDINATE SYSTEM.");
 	System.out.println();
 	System.out.println("An initial example of a file could be as follows:");
 	System.out.println("100 100            -> bin dimensions.");

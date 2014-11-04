@@ -1,8 +1,10 @@
 package core;
+
 /**
  * Constants variables used along the application.
+ * 
  * @author Moises Baly
- *
+ * 
  */
 public class Constants {
     /**

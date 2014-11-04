@@ -59,8 +59,7 @@ public class RecreateBinsClient {
 	public String toString() {
 	    System.out.println(nLines);
 	    for (BinLine line : lines) {
-		System.out.println(line.id + " " + line.rotation + " "
-			+ line.position.toString());
+		System.out.println(line.id + " " + line.rotation + " " + line.position.toString());
 	    }
 	    return "nothing";
 
@@ -68,8 +67,7 @@ public class RecreateBinsClient {
     }
 
     public static void main(String[] args) throws Exception {
-	System.out
-		.println("Begin..............................................");
+	System.out.println("Begin..............................................");
 	MArea[] pieces = loadPieces(PIECES_PATH);
 	Map<Integer, MArea> piecesMap = new HashMap<Integer, MArea>();
 	for (MArea piece : pieces) {
@@ -90,19 +88,15 @@ public class RecreateBinsClient {
 		piecesInThisBin.add(piece);
 		piecesMap.remove(line.id);
 	    }
-	    Utils.drawMAreasToFile(piecesInThisBin, viewPortDimension,
-		    binDimension, (OUTPUT + bin.name));
+	    Utils.drawMAreasToFile(piecesInThisBin, viewPortDimension, binDimension, (OUTPUT + bin.name));
 	}
 	if (!piecesMap.isEmpty()) {
-	    throw new Exception(
-		    "Some pieces where not present in the bin output files");
+	    throw new Exception("Some pieces where not present in the bin output files");
 	}
-	System.out
-		.println("...................................................End");
+	System.out.println("...................................................End");
     }
 
-    private static MArea[] loadPieces(String pathToFile)
-	    throws FileNotFoundException {
+    private static MArea[] loadPieces(String pathToFile) throws FileNotFoundException {
 	Scanner sc = new Scanner(new File(pathToFile));
 	binDimension = new Dimension(sc.nextInt(), sc.nextInt());
 	double x1 = binDimension.getWidth();
@@ -154,8 +148,7 @@ public class RecreateBinsClient {
 	return pieces;
     }
 
-    private static BinFile[] loadBinResultFiles(String pathToDirectory)
-	    throws FileNotFoundException {
+    private static BinFile[] loadBinResultFiles(String pathToDirectory) throws FileNotFoundException {
 	File folder = new File(pathToDirectory);
 	File[] listOfFiles = folder.listFiles();
 	ArrayList<String> fileNames = new ArrayList<String>();
@@ -171,8 +164,7 @@ public class RecreateBinsClient {
 	return binFiles.toArray(new BinFile[0]);
     }
 
-    private static BinFile readBinFile(String filename, String name)
-	    throws FileNotFoundException {
+    private static BinFile readBinFile(String filename, String name) throws FileNotFoundException {
 	Scanner sc = new Scanner(new File(filename));
 	int N = sc.nextInt();
 	sc.nextLine();

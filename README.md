@@ -73,7 +73,6 @@ The file structure of the project is as follows:
   - utils
     - Client.java : Execution client. Process the input and produces the outputs.
     - RecreateBinsClient.java : Client for the generation of bin images from the outputs.txt.
-    - RedBlackBST.java : Red Black BST implementation from http://algs4.cs.princeton.edu/code/ (GPLv3)
     - Utils.java : Various utility functions.
 
 Some modifications can be made in order to improve the results of the algorithm. In concrete, the class `Constants.java` contains some variables that if increased, will produce more accurate movements in the displacement of pieces during the algorithm. Also, this class contains rotation angles for which we will try to place a piece. If we extend this array, the algorithm will try to place the pieces in all defined angles. Please note that there is a tradeoff in time when modifying these parameters: increasing them will most likely improve the results, but also the computation time. For example, for the test set Shapes12.txt (220 pieces), and the standard parameters:

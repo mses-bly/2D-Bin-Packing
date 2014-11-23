@@ -30,7 +30,7 @@ import core.BinPacking;
 public class Client {
 
     public static void main(String[] args) {
-	if (args.length < 0) {
+	if (args.length < 1) {
 	    printUsage();
 	} else {
 	    try {

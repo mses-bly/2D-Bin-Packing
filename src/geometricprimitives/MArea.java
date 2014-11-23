@@ -262,7 +262,7 @@ public class MArea extends Area {
 	double yFactor = viewPortDimension.getHeight() / binDimension.getHeight();
 	AffineTransform transform = new AffineTransform();
 	transform.scale(xFactor, yFactor);
-	transform.translate(25, 25);
+	transform.translate(11, 11);
 	Area newArea = this.createTransformedArea(transform);
 	Graphics2D g2d = (Graphics2D) g;
 	g2d.setColor(Color.BLACK);

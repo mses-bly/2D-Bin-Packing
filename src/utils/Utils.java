@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
@@ -15,6 +16,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
@@ -106,12 +109,13 @@ public class Utils {
      * @see IOException
      */
     public static void drawMAreasToFile(ArrayList<MArea> pieces, Dimension viewPortDimension, Dimension binDimension, String name) throws IOException {
-	BufferedImage img = new BufferedImage(viewPortDimension.width + 40, viewPortDimension.height + 40, BufferedImage.TYPE_INT_RGB);
+	BufferedImage img = new BufferedImage(viewPortDimension.width + 20, viewPortDimension.height + 20, BufferedImage.TYPE_INT_RGB);
 	Graphics2D g2d = img.createGraphics();
+	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	g2d.setColor(Color.darkGray);
+	g2d.fillRect(0, 0, viewPortDimension.width + 20, (int) viewPortDimension.height + 20);
 	g2d.setColor(Color.WHITE);
-	g2d.fillRect(0, 0, viewPortDimension.width + 40, viewPortDimension.height + 40);
-	g2d.setColor(Color.BLUE);
-	g2d.drawRect(20, 20, viewPortDimension.width, viewPortDimension.height);
+	g2d.fillRect(10, 10, viewPortDimension.width, viewPortDimension.height);
 	g2d.setColor(Color.BLACK);
 	for (int i = 0; i < pieces.size(); i++) {
 	    pieces.get(i).drawInViewPort(binDimension, viewPortDimension, g2d);
@@ -154,6 +158,75 @@ public class Utils {
 	    return piece;
 	}
 	return piece;
+    }
+
+    /**
+     * Load pieces file
+     * 
+     * @param fileName
+     * @return @Object[] that contains the specified bin dimension, the
+     *         calculated viewport dimension and the pieces read from file:
+     *         position 0 - (Dimension)binDimension position 1 -
+     *         (Dimension)viewPortDimension position 2 - (MArea[])pieces
+     * @throws IOException
+     */
+    public static Object[] loadPieces(String fileName) throws IOException {
+	Scanner sc = new Scanner(new File(fileName));
+	Dimension binDimension = new Dimension(sc.nextInt(), sc.nextInt());
+	double x1 = binDimension.getWidth();
+	double y1 = binDimension.getHeight();
+	Dimension viewPortDimension;
+	if (x1 > y1) {
+	    viewPortDimension = new Dimension(1500, (int) (1500 / (x1 / y1)));
+	} else {
+	    viewPortDimension = new Dimension((int) (1500 / (y1 / x1)), 1500);
+	}
+	int N = sc.nextInt();
+	sc.nextLine();
+	MArea[] pieces = new MArea[N];
+	int n = 0;
+	while (n < N) {
+	    String s = sc.nextLine();
+	    String[] src = s.split("\\s+");
+	    if (src[0].equalsIgnoreCase("@")) {
+		// hole piece
+		if (n <= 0) {
+		    sc.close();
+		    return null;
+		}
+		MPointDouble[] points = new MPointDouble[src.length - 1];
+		for (int j = 1; j < src.length; j++) {
+		    String[] point = src[j].split(",");
+		    double x = Double.valueOf(point[0]);
+		    double y = Double.valueOf(point[1]);
+		    points[j - 1] = new MPointDouble(x, y);
+		}
+		MArea outer = pieces[n - 1];
+		MArea inner = new MArea(points, n);
+		MArea area = new MArea(outer, inner);
+		area.placeInPosition(0, 0);
+		pieces[n - 1] = area;
+		// TODO process repetitions in the holes processing section
+	    } else {
+		ArrayList<MPointDouble> pointsArrayList = new ArrayList<MPointDouble>();
+		HashSet<MPointDouble> set = new HashSet<MPointDouble>();
+		for (int j = 0; j < src.length; j++) {
+		    String[] point = src[j].split(",");
+		    double x = Double.valueOf(point[0]);
+		    double y = Double.valueOf(point[1]);
+		    MPointDouble thisPoint = new MPointDouble(x, y);
+		    if (!set.contains(thisPoint)) {
+			pointsArrayList.add(thisPoint);
+			set.add(thisPoint);
+		    }
+		}
+		pieces[n] = new MArea(pointsArrayList.toArray(new MPointDouble[0]), n + 1);
+		++n;
+	    }
+	}
+	sc.close();
+	Object[] result = { binDimension, viewPortDimension, pieces };
+	return result;
     }
 
 }

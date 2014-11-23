@@ -47,61 +47,12 @@ public class Client {
     }
 
     private static void launch(String fileName) throws IOException {
-	Scanner sc = new Scanner(new File(fileName));
-	Dimension binDimension = new Dimension(sc.nextInt(), sc.nextInt());
-	double x1 = binDimension.getWidth();
-	double y1 = binDimension.getHeight();
-	Dimension viewPortDimension;
-	if (x1 > y1) {
-	    viewPortDimension = new Dimension(1500, (int) (1500 / (x1 / y1)));
-	} else {
-	    viewPortDimension = new Dimension((int) (1500 / (y1 / x1)), 1500);
-	}
-	int N = sc.nextInt();
-	sc.nextLine();
-	MArea[] pieces = new MArea[N];
-	int n = 0;
-	while (n < N) {
-	    String s = sc.nextLine();
-	    String[] src = s.split("\\s+");
-	    if (src[0].equalsIgnoreCase("@")) {
-		// hole piece
-		if (n <= 0)
-		    return;
+	Object[] result = Utils.loadPieces(fileName);
 
-		MPointDouble[] points = new MPointDouble[src.length - 1];
-		for (int j = 1; j < src.length; j++) {
-		    String[] point = src[j].split(",");
-		    double x = Double.valueOf(point[0]);
-		    double y = Double.valueOf(point[1]);
-		    points[j - 1] = new MPointDouble(x, y);
-		}
-		MArea outer = pieces[n - 1];
-		// outer.placeInPosition(0, 0);
-		MArea inner = new MArea(points, n);
-		// inner.placeInPosition(0, 0);
-		MArea area = new MArea(outer, inner);
-		area.placeInPosition(0, 0);
-		pieces[n - 1] = area;
-	    } else {
-		ArrayList<MPointDouble> pointsArrayList = new ArrayList<MPointDouble>();
-		HashSet<MPointDouble> set = new HashSet<MPointDouble>();
-		for (int j = 0; j < src.length; j++) {
-		    String[] point = src[j].split(",");
-		    double x = Double.valueOf(point[0]);
-		    double y = Double.valueOf(point[1]);
-		    MPointDouble thisPoint = new MPointDouble(x, y);
-		    if (!set.contains(thisPoint)) {
-			pointsArrayList.add(thisPoint);
-			set.add(thisPoint);
-		    }
-		}
-		pieces[n] = new MArea(pointsArrayList.toArray(new MPointDouble[0]), n + 1);
-		++n;
-	    }
-	}
-	sc.close();
-	System.out.println("");
+	Dimension binDimension = (Dimension) result[0];
+	Dimension viewPortDimension = (Dimension) result[1];
+	MArea[] pieces = (MArea[]) result[2];
+
 	Bin[] bins = BinPacking.BinPackingStrategy(pieces, binDimension, viewPortDimension);
 	System.out.println("Generating bin images.........................");
 	drawbinToFile(bins, viewPortDimension);

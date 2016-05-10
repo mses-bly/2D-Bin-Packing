@@ -11,6 +11,7 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -153,6 +154,29 @@ public class Utils {
 	 */
 	public static Object[] loadPieces(String fileName) throws IOException {
 		Scanner sc = new Scanner(new File(fileName));
+		return readInput(sc);
+	}
+
+	/**
+	 * @param reader
+	 * @return @Object[] that contains the specified bin dimension, the
+	 * calculated viewport dimension and the pieces read from file:
+	 * position 0 - (Dimension)binDimension position 1 -
+	 * (Dimension)viewPortDimension position 2 - (MArea[])pieces
+	 * @throws IOException
+	 */
+	public static Object[] loadPieces(BufferedReader reader) throws IOException {
+		Scanner sc = new Scanner(reader);
+		return readInput(sc);
+	}
+
+	/**
+	 * From a scanner, reads the pieces.
+	 *
+	 * @param scanner
+	 * @return
+	 */
+	private static Object[] readInput(Scanner sc) {
 		Dimension binDimension = new Dimension(sc.nextInt(), sc.nextInt());
 		double x1 = binDimension.getWidth();
 		double y1 = binDimension.getHeight();

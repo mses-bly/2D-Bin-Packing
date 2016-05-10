@@ -1,8 +1,9 @@
-package org.packing.utils;
+package org.packing.main;
 
 import org.packing.core.Bin;
 import org.packing.core.BinPacking;
 import org.packing.primitives.MArea;
+import org.packing.utils.Utils;
 
 import java.awt.*;
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author Moises Baly
  */
-public class Client {
+public class Main {
 
 	public static void main(String[] args) {
 		if (args.length < 1) {
@@ -82,7 +83,7 @@ public class Client {
 		System.out.println();
 		System.out.println("Usage:");
 		System.out.println();
-		System.out.println("$java -jar 2DBinpacking.jar <file name>");
+		System.out.println("$java -jar 2d-bin-packing-1.0.0.jar <file name>");
 		System.out.println("<file name>: file describing pieces (see file structure specifications below).");
 		System.out.println();
 		System.out.println();

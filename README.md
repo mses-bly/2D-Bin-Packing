@@ -14,10 +14,29 @@ alt="IMAGE ALT TEXT HERE" width="300" height="200" align="center"/></a>
 
 **Basic use**
 
-You can find a jar package with executable code to give you an idea of what the application does. To execute the jar file use:
+To build the executable jar file, clone the repo and place yourself inside the project root folder. Then:
 
 ```
-$ java –jar 2DBinPacking.jar <input_file> 
+mvn package
+```
+
+You can then find the jar inside the `/target` folder.
+
+```
+$ java –jar 2d-bin-packing-1.0.0.jar <input_file>
+```
+
+In order to run an example and see how the program works, run the following command from inside the project root folder:
+
+```
+mvn exec:java -Dexec.mainClass="org.packing.main.Example"
+```
+
+*Note* : This will generate all the output in the root folder of the project. To clean this output, run:
+
+```
+rm -r *.txt
+rm -r *.png
 ```
 
 input_file: This is the pieces descriptor file, it contains the bin dimensions in which to place the pieces, the number of pieces, and the points that describe the 2D contour of the pieces themselves. An example of such file would be:

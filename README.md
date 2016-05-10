@@ -20,7 +20,7 @@ To build the executable jar file, clone the repo and place yourself inside the p
 mvn package
 ```
 
-You can then find the jar inside the `/target` folder.
+You can then find the jar inside the `/target` folder. To execute use:
 
 ```
 $ java –jar 2d-bin-packing-1.0.0.jar <input_file>

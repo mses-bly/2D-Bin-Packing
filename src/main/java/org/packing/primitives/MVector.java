@@ -1,4 +1,4 @@
-package geometricprimitives;
+package org.packing.primitives;
 
 /**
  * A class that represents a geometric vector v=(x,y) in double precision.
